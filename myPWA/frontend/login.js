@@ -22,9 +22,12 @@ function validateEmail() {
     return true;
 }
 
-// Prevent form submission if email is invalid
+// Handle form submission
 document.querySelector('.sign-up-form').addEventListener('submit', function(event) {
     if (!validateEmail()) {
-        event.preventDefault(); // Stop form from submitting
+        event.preventDefault(); // Stop form from submitting if validation fails
+    } else {
+        event.preventDefault(); // Prevent form’s default submission
+        window.location.href = 'index.html'; // Redirect to the target page
     }
 });
