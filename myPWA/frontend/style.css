@@ -84,5 +84,13 @@ header {
 .srbtn i{
     margin-left: 5px;
     font-size: 13px;
-    transition: 0.3x ease;
+    transition: 0.2s ease;
+}
+
+.srbtn:hover{
+    color: var(--main-color);
+}
+
+.srbtn:hover i{
+    transform: rotate(90deg);
 }
