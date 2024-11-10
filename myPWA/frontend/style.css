@@ -364,3 +364,12 @@ header {
     background-color: var(--main-color);
 
 }
+
+.headerimg{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: url('this will be the brownie cookie image') no-repeat center center/cover;
+    z-index: 1;
+    
+}
