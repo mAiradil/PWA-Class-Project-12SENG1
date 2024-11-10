@@ -241,7 +241,7 @@ header {
 
 .navonoff {
 
-    display: none;
+     display: none; 
     /* display block when width 500px */
 
 }
@@ -365,11 +365,77 @@ header {
 
 }
 
-.headerimg{
+.headerimg {
     position: relative;
     width: 100%;
     height: auto;
-    background: url('this will be the brownie cookie image') no-repeat center center/cover;
+    background: url('../images/cookies.jpg') no-repeat center center/cover;
     z-index: 1;
-    
+    transition: 0.3s ease;
+}
+
+.headerimg .container {
+    width: 100%;
+    height: 100%;
+}
+
+.headerimg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.3;
+    z-index: -1;
+    transition: background-color .3s;
+}
+
+.headerinfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    z-index: 9;
+    color: #fff;
+    padding-top: 8rem;
+    padding-bottom: 13rem;
+}
+
+.headertitle {
+    font-size: 70px;
+    color: #fff;
+    font-weight: 600;
+    font-family: fangsong;
+}
+
+.headerpera {
+    font-size: 17px;
+    padding-right: 35rem;
+    color: #ffffffcd;
+}
+
+.headerbtn{
+    --black: #000000;
+    --ch-black: #141414;
+    --eer-black: #1b1b1b;
+    --night-rider: #2e2e2e;
+    --white: #ffff;
+    --af-white: #f3f3f3;
+    --ch-white: #e1e1e1;
+    border-radius: 8px;
+    width: 180px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 15px;
+    border: none;
+    color: white;
+    position: relative;
+    font-weight: 700;
+    transition-duration: 0.2s;
+    background-color: var(--main-color);
+
 }
