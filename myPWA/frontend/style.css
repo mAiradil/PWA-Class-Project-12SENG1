@@ -439,3 +439,146 @@ header {
     background-color: var(--main-color);
 
 }
+.headerbtn:before,
+.headerbtn:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    border-radius: 10px;
+    background: linear-gradient(45deg,
+            var(--ch-black), var(--eer-black),
+            var(--night-rider), var(--ch-white), var(--night-rider),
+            var(--eer-black), var(--ch-black), var(--ch-black));
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: steam 15s linear infinite;
+}
+
+@keyframes steam {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.headerbtn:after {
+    filter: blur(50px);
+}
+
+.headerbtn:hover {
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px #fff;
+}
+
+
+.headerslider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-top: -120px;
+    /* border: 1px solid red; */
+    z-index: 99;
+    overflow: hidden;
+}
+
+.slidertitle {
+    color: #fff;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+
+.slidertitle h4 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sliderlfbtn button {
+    position: relative;
+    padding: 15px;
+    border: 2px solid #fff;
+    color: white;
+    background: transparent;
+    outline: none;
+    border-radius: 50%;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.sliderlfbtn button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--main-color);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.4s ease;
+    z-index: -1;
+}
+
+.sliderlfbtn button:hover::after,
+.sliderlfbtn button:hover {
+    transform: scale(1);
+    border: 2px solid var(--main-color);
+}
+
+.headercards {
+    width: 100%;
+    gap: 30px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    transition: transform 0.5s ease-in-out;
+}
+
+.headercards::-webkit-scrollbar {
+    display: none;
+}
+
+.headercard {
+    background-color: #e2e1ec;
+    min-width: 345px;
+    max-width: 345px;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.headercard img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.headr .headercard:hover {
+    box-shadow: 0 0 15px var(--main-color);
+}
+
+.hcardinfo {
+    margin-left: 10px;
+}
+
+.hcardinfo span {
+    color: brown;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.hcardinfo h3 {
+    color: #333;
+    font-family: var(--font-family);
+    margin-top: 8px;
+}
