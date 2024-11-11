@@ -24,70 +24,97 @@ searchoff.addEventListener('click', () => {
 const posts = [
     {
         title: "Brownie Cookies",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ut, quam corporis excepturi cum ipsa",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://google.com/",
-        bgImg: "../images/cookies.jpg",
+        backgroundImage: "../images/cookies.jpg",
         label: "cookies"
     },
     {
-        title: "Angus Beef Burger",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ut, quam corporis excepturi cum ipsa",
-        link: "https://google.com/",
-        bgImg: "../images/burger.jpg",
+        title: "Chicken Pasta",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+        link: "https://example.com/slide2",
+        backgroundImage: "../images/yummy.jpg",
         label: "cookies"
     },
     {
-        title: "Creamy Olive Pizza",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ut, quam corporis excepturi cum ipsa",
-        link: "https://google.com/",
-        bgImg: "../images/pizza.jpg",
+        title: "Healthy Steak",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+        link: "https://example.com/slide3",
+        backgroundImage: "../images/steak.jpg",
         label: "cookies"
     },
 ];
 
 let currentSlide = 0;
 
-function showSlide(slideIndex){
+
+function showSlide(slideIndex) {
     const slide = posts[slideIndex];
     document.querySelector('.headertitle').textContent = slide.title;
-    document.querySelector('.headerpera').textContent = slide.desc;
-    document.querySelector('.headerbtc').href = slide.link;
-    document.querySelector('.headerimg').style.backgroundImage = slide.img;
-
+    document.querySelector('.headerpera').textContent = slide.description;
+    document.querySelector('.headerbtn').href = slide.link;
+    document.querySelector('.headerimg').style.backgroundImage = `url(${slide.backgroundImage})`;
 }
 
-// intial slide
+// Initial slide
 showSlide(currentSlide);
 
 
-// header Posts CHanging slide
+// header posts change slider
 const headerPosts = document.querySelector('.headercards');
 
+
 const headerPostsCards = () => {
+
     const updateSlider = () => {
-        headerPosts.innerHTML = '';
-        for (let i = currentSlide; i < currentSlide + 6; i++){
+        headerPosts.innerHTML = ''; // Clear existing content   
+        for (let i = currentSlide; i < currentSlide + 6; i++) {
             const post = posts[i % posts.length];
             const postElement = document.createElement('a');
             postElement.classList.add('headercard');
             postElement.classList.add('flex');
             postElement.href = `${post.link}`;
             postElement.innerHTML = `
-            <img src="${post.bgImg}" alt="">
-                    <div class="hcardinfo">
-                        <span>${post.label}</span>
-                        <h3${post.title}</h3>
-                    </div>
-            `
+               <img src="${post.backgroundImage}" alt="">
+               <div class="hcardinfo">
+                   <span>${post.label}</span>
+                   <h3>${post.title}</h3>
+               </div>
+           `;
             headerPosts.appendChild(postElement);
-
         }
     };
- // initiaalise the slider
+
+    // left right scroll
+    const leftBtn = document.getElementById('sleft');
+    const rightBtn = document.getElementById('sright');
+
+    leftBtn.addEventListener('click', function () {
+        currentSlide = (currentSlide - 6 + posts.length) % posts.length;
+        updateSlider();
+        showSlide(currentSlide);
+    });
+
+    rightBtn.addEventListener('click', function () {
+        currentSlide = (currentSlide + 6) % posts.length;
+        updateSlider();
+        showSlide(currentSlide);
+    });
+
+    // Initialize the slider
     updateSlider();
-          
-}
+};
 
 headerPostsCards();
 
- 
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % posts.length;
+    showSlide(currentSlide);
+    headerPostsCards(currentSlide);
+}
+
+// Change slide every 3 seconds
+setInterval(nextSlide, 3000);
+
+
