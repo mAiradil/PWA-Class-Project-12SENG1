@@ -17,46 +17,43 @@ const posts = [
         title: "Browny Cookies",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide1",
-        backgroundImage: "../img/cookies-6.jpg",
-        label: "cookies"
+        backgroundImage: "img/cookies-7.jpg",
+        label: "Cookies"
     },
     {
         title: "Caramel Cookies",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide2",
-        backgroundImage: "../img/cookies-6.jpg",
-        label: "cookies"
+        backgroundImage: "img/cookies-6.jpg",
+        label: "Cookies"
+    },
+    {
+        title: "Healthy Steak",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+        link: "https://example.com/slide3",
+        backgroundImage: "img/steak-food.jpg",
+        label: "Steak"
     },
     {
         title: "Cheese Pizza",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "/img/steak-food.jpg",
-        label: "cookies"
-    },
-    {
-        title: "Oat Cookies",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-        link: "https://example.com/slide3",
-        backgroundImage: "../img/cheesepizza.jpg",
-        label: "pizza"
+        backgroundImage: "img/cheesepizza.jpg",
+        label: "Pizza"
     },
     {
         title: "Grill Chicken",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "../img/cookies.jpg",
-        label: "cookies"
+        backgroundImage: "img/grilled1.jpg",
+        label: "Chicken"
     }
 ];
 
-const url = window.location.pathname;
-const pageName = url.substring(url.lastIndexOf('/') + 1);
 
 let currentSlide = 0;
 
-if(pageName == "login.html")
-    {}else{
+
 
 function showSlide(slideIndex) {
     const slide = posts[slideIndex];
@@ -72,7 +69,7 @@ function showSlide(slideIndex) {
 
 // Initial slide
 showSlide(currentSlide);
-}
+
 
 // header posts change slider
 const headerPosts = document.querySelector('.headercards');
@@ -98,8 +95,7 @@ const headerPostsCards = () => {
             headerPosts.appendChild(postElement);
         }
     };
-    if(pageName == "login.html")
-    {}else{
+   
         // left right scroll
         const leftBtn = document.getElementById('sleft');
         const rightBtn = document.getElementById('sright');
@@ -119,7 +115,7 @@ const headerPostsCards = () => {
         // Initialize the slider
         updateSlider();
     }
-};
+
 
 headerPostsCards();
 
@@ -129,11 +125,10 @@ function nextSlide() {
     showSlide(currentSlide);
     headerPostsCards(currentSlide);
 }
-if(pageName == "login.html")
-    {}else{
+
 // Change slide every 3 seconds
 setInterval(nextSlide, 3000);
-    }
+    
 
 
 

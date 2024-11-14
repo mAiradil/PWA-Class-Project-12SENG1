@@ -582,3 +582,213 @@ header {
     font-family: var(--font-family);
     margin-top: 8px;
 }
+
+/* three chard */
+
+
+main {
+    width: 100%;
+    height: auto;
+}
+
+.threecards {
+    gap: 25px;
+    padding: 0 20px;
+    margin-top: 6rem;
+}
+
+.tcard {
+    position: relative;
+    width: 350px;
+    height: auto;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    box-shadow: 0 0 10px #ede9e9;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.tcardimg {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.tcardimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.tcard:hover .tcardimg img {
+    transform: scale(1.1);
+}
+
+.tcardimg span {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.tcardimg span:hover {
+    color: orange;
+}
+
+.tcardinfo {
+    position: relative;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px;
+}
+
+.tlabel {
+    color: brown;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.tcardinfo h2 {
+    font-size: 20px;
+    color: #222;
+    text-align: center;
+    text-transform: capitalize;
+    font-family: var(--font-family);
+}
+
+.tcardbtn {
+    position: relative;
+    background-color: var(--main-color);
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tcardbtn::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #1111112a;
+    z-index: -1;
+    transform: scale(0);
+    transition: 0.3s ease-in-out;
+}
+
+.tcardbtn:hover::before {
+    transform: scale(1);
+}
+
+.star-rating {
+    display: flex;
+}
+
+.fa-star {
+    color: #555;
+}
+
+.checked {
+    color: orange;
+}
+
+.tcardinfo p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #444;
+    text-align: center;
+}
+
+.tcarbtn {
+    --black: #000000;
+    --ch-black: #141414;
+    --eer-black: #1b1b1b;
+    --night-rider: #2e2e2e;
+    --white: #ffffff;
+    --af-white: #f3f3f3;
+    --ch-white: #e1e1e1;
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 15px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    font-weight: 700;
+    transition-duration: .2s;
+    background-color: var(--main-color);
+}
+
+.tcarbtn:before,
+.tcarbtn:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    border-radius: 10px;
+    background: linear-gradient(45deg,
+            var(--ch-black), var(--eer-black),
+            var(--night-rider), var(--ch-white), var(--night-rider),
+            var(--eer-black), var(--ch-black), var(--ch-black));
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: steam 20s linear infinite;
+}
+
+@keyframes steam {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.tcarbtn:hover {
+    border: 1px solid #222;
+    box-shadow: 0 0 10px #222;
+}
+
+.tcardinfo ul {
+    gap: 12px;
+}
+
+.tcardinfo ul li {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.tcardinfo ul li i {
+    margin-right: 5px;
+    color: brown;
+}
+
+.tcardinfo ul li:hover {
+    color: brown;
+}
