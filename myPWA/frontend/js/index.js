@@ -13,6 +13,8 @@ window.addEventListener('scroll', () => {
 
 // slider header
 
+// DO NOT TOUCH
+
 const posts = [
     {
         title: "Browny Cookies",
@@ -29,24 +31,24 @@ const posts = [
         label: "cookies"
     },
     {
-        title: "Healthy Steak",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-        link: "https://example.com/slide3",
-        backgroundImage: "../img/cheesepizza.jpg",
-        label: "cookies"
-    },
-    {
         title: "Cheese Pizza",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "../img/breakfast.jpg",
-        label: "pizza"
+        backgroundImage: "../img/cheesepizza.jpg",
+        label: "Pizza"
+    },
+    {
+        title: "Wrap",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+        link: "https://example.com/slide3",
+        backgroundImage: "../img/nacho.jpg",
+        label: "Mexican"
     },
     {
         title: "Oat Cookies",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "../img/grill.jpg",
+        backgroundImage: "../img/grilled1.jpg",
         label: "cookies"
     }
 ];
