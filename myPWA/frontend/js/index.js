@@ -1,7 +1,8 @@
 // Nav Sticky
 
 const mainnav = document.querySelector('.mainnav');
-
+const url = window.location.pathname;
+const pageName = url.substring(url.lastIndexOf('/') + 1);
 window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop > 2) {
         mainnav.classList.add('sticky');
@@ -17,7 +18,7 @@ const posts = [
         title: "Browny Cookies",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide1",
-        backgroundImage: "../img/cookies-6.jpg",
+        backgroundImage: "../img/cookies-7.jpg",
         label: "cookies"
     },
     {
@@ -28,51 +29,50 @@ const posts = [
         label: "cookies"
     },
     {
+        title: "Healthy Steak",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+        link: "https://example.com/slide3",
+        backgroundImage: "../img/cheesepizza.jpg",
+        label: "cookies"
+    },
+    {
         title: "Cheese Pizza",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "/img/steak-food.jpg",
-        label: "cookies"
+        backgroundImage: "../img/breakfast.jpg",
+        label: "pizza"
     },
     {
         title: "Oat Cookies",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "../img/cheesepizza.jpg",
-        label: "pizza"
-    },
-    {
-        title: "Grill Chicken",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-        link: "https://example.com/slide3",
-        backgroundImage: "../img/cookies.jpg",
+        backgroundImage: "../img/grill.jpg",
         label: "cookies"
     }
 ];
 
-const url = window.location.pathname;
-const pageName = url.substring(url.lastIndexOf('/') + 1);
 
+ 
 let currentSlide = 0;
 
-if(pageName == "login.html")
-    {}else{
-
-function showSlide(slideIndex) {
-    const slide = posts[slideIndex];
-    document.querySelector('.headertitle').textContent = slide.title;
-    document.querySelector('.headerpera').textContent = slide.description;
-    document.querySelector('.headerbtn').href = slide.link;
-    document.querySelector('.headerimg').style.backgroundImage = `url(${slide.backgroundImage})`;
-}
-
-
+if(pageName == "")
+{   
+ 
+    function showSlide(slideIndex) {
+        const slide = posts[slideIndex];
+        document.querySelector('.headertitle').textContent = slide.title;
+        document.querySelector('.headerpera').textContent = slide.description;
+        document.querySelector('.headerbtn').href = slide.link;
+        document.querySelector('.headerimg').style.backgroundImage = `url(${slide.backgroundImage})`;
+    }
 
 
 
-// Initial slide
-showSlide(currentSlide);
-}
+
+
+    // Initial slide
+    showSlide(currentSlide);
+}else{}
 
 // header posts change slider
 const headerPosts = document.querySelector('.headercards');
@@ -98,8 +98,8 @@ const headerPostsCards = () => {
             headerPosts.appendChild(postElement);
         }
     };
-    if(pageName == "login.html")
-    {}else{
+    if(pageName == "")
+    {
         // left right scroll
         const leftBtn = document.getElementById('sleft');
         const rightBtn = document.getElementById('sright');
@@ -118,7 +118,7 @@ const headerPostsCards = () => {
 
         // Initialize the slider
         updateSlider();
-    }
+    }else{}
 };
 
 headerPostsCards();
@@ -129,11 +129,11 @@ function nextSlide() {
     showSlide(currentSlide);
     headerPostsCards(currentSlide);
 }
-if(pageName == "login.html")
-    {}else{
+if(pageName == "")
+{   
 // Change slide every 3 seconds
 setInterval(nextSlide, 3000);
-    }
+}else{}
 
 
 

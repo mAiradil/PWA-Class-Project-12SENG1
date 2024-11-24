@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food For Thought</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/login.css">
+    
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="/css/login.css">
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -29,14 +29,15 @@
                 <div class="container flex">
                     <div class="logo flex">
                         <img src="" alt="">
-                        <h1> Food For Thought</h1>
+                        <h1> <a href="/">Food For Thought</a></h1>
                     </div>
                     <ul class="navlist flex">
-                        <li><a href="/">Home</a></li>
+                         <!-- <li><a href="/">Home</a></li>-->
                         <li><a href="/">Categories</a></li>
-                        <li><a href="/">Blog</a></li>
+                        <!-- <li><a href="/">Blog</a></li>-->
                         <li><a href="/">My Recipes</a></li>
                         <li><a href="/">My Account</a></li>
+                        <li><a href="/login.html">Sign Up</a></li>
                     </ul>
                     <div class="searchbar flex">
                         <input type="checkbox" name="check-toggle" id="checkbox" hidden="">
@@ -64,33 +65,38 @@
 
     <main>
 
-        <div id="login">
-        
-        <h2>Start your journey</h2>
-        <br>
-        
-        <h1>Sign Up to <span class="highlight"> Food For Thought</span></h1>
-        
-        <form action="#" class="sign-up-form">
-            <label for="email">E-mail</label>
-            <div class="input-group">
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-                <span class="input-icon">&#x2709;</span> <!-- Email icon (envelope) -->
-            </div>
-          
-            
-            <label for="password">Password</label>
-            <div class="input-group">
-                <input type="password" id="password" placeholder="●●●●●●●●" required>
-                <span class="input-icon toggle-password" onclick="togglePassword()">👁</span>
-            </div>
-            
-            <br> 
 
-            <button type="submit">Sign Up</button>
 
-        </form>
-    </div>
+
+        <section class="loginsection">
+            <div class="logininfo">
+                <h1>Start your journey</h1>
+                <br>
+                
+                <h2>Sign Up to <span class="highlight"> Food For Thought</span></h2>
+                
+
+                <form action="#" class="sign-up-form">
+                    <label for="email">E-mail</label>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="example@gmail.com" required>
+                        <span class="input-icon">&#x2709;</span> <!-- Email icon (envelope) -->
+                    </div>
+                  
+                    
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="" required>
+                        <span class="input-icon toggle-password" onclick="togglePassword()">👁</span>
+                    </div>
+                    
+                    <br> 
+
+                    <button type="submit">Sign Up</button>
+
+                </form>
+            </div>
+        </section>
     </main>
 
 
@@ -107,20 +113,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="/js/index.js"></script>
-    
+    <script src="/js/login.js"></script>
 </body>
 </html>

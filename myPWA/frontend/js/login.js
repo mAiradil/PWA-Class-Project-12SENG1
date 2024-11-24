@@ -1,7 +1,7 @@
 function togglePassword() {
     const passwordInput = document.getElementById('password');
     const passwordIcon = document.querySelector('.toggle-password');
-    
+
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         passwordIcon.textContent = '🙈';
@@ -28,6 +28,6 @@ document.querySelector('.sign-up-form').addEventListener('submit', function(even
         event.preventDefault(); // Stop form from submitting if validation fails
     } else {
         event.preventDefault(); // Prevent form’s default submission
-        window.location.href = 'index.html'; // Redirect to the target page
+        window.location.href = '/'; // Redirect to the target page
     }
 });

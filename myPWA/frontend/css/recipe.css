@@ -1,7 +1,7 @@
 
 /* loginsection */
 
-.loginsection {
+.recipesection {
     position: relative;
     width: 100%;
      
@@ -11,17 +11,17 @@
  
 }
 
-.logininfo {
+.recipeinfo {
     text-align: center;
 }
 
-.logininfo h1 {
+.recipeinfo h1 {
     font-family: var(--font-family);
     font-size: 42px;
     margin-bottom: 20px;
 }
 
-.logininfo p {
+.recipeinfo p {
     margin-bottom: 2rem;
     font-size: 14px;
     font-weight: 600;
@@ -29,13 +29,13 @@
     text-align: center;
 }
 
-.logininfo form {
+.recipeinfo form {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.logininfo form label {
+.recipeinfo form label {
     font-size: 25px;
     margin-bottom: 10px;
     font-family: fantasy;
@@ -43,7 +43,7 @@
     letter-spacing: 2px;
 }
 
-.logininfo button {
+.recipeinfo button {
     position: relative;
     padding: 10px 40px;
     background-color: #e25959;
@@ -57,7 +57,7 @@
     z-index: 1;
 }
 
-.logininfo input {
+.recipeinfo input {
     width: 100%;
     height: 100%;
    
@@ -70,7 +70,7 @@
 
 
 
-.logininfo button::before {
+.recipeinfo button::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -83,11 +83,11 @@
     transition: 0.3s ease-in-out;
 }
 
-.logininfo button:hover::before {
+.recipeinfo button:hover::before {
     transform: scale(1);
 }
 
 
-.logininfo .input-group{
+.recipeinfo .input-group{
     width:100%;
 }

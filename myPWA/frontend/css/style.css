@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:wght@900&display=swap');
 
 
 /* font-family: 'Noto Sans', sans-serif;
@@ -369,7 +369,7 @@ header {
     position: relative;
     width: 100%;
     height: auto;
-    background: url('../images/cookies.jpg') no-repeat center center/cover;
+    background: url('/img/cookies.jpg') no-repeat center center/cover;
     z-index: 1;
     transition: 0.3s ease;
 }
@@ -581,6 +581,30 @@ header {
     color: #333;
     font-family: var(--font-family);
     margin-top: 8px;
+}
+
+
+ 
+.tcardfull{
+    position: relative;
+    width: 100%;
+    height: auto;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    box-shadow: 0 0 10px #ede9e9;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.tcardfull .flex {
+    display: flex;
+    align-items: stretch;
+}
+
+.threecardsfull {
+    gap: 25px;
+    padding: 0 20px;
+    
 }
 
 /* three chard */
@@ -958,5 +982,50 @@ main {
 .catecarbtn:hover::before {
     transform: scale(1);
 }
+
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+
+
+
+.recipe-page .recipe-method-section ul li {
+    padding: 16px;
+    border: 1px solid #e0e1e2;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+
 
 
