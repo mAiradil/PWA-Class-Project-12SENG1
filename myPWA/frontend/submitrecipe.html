@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food For Thought</title>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+    <header>
+        <div class="topnav">
+            <div class="container flex">
+                <div class="navicons flex">
+                    <a href="/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="/"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="/"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <a href="/" class="srbtn">Submit Recipe <i class="fa-solid fa-plus"></i></a>
+            </div>
+        </div>
+            <div class="mainnav">
+                <div class="container flex">
+                    <div class="logo flex">
+                        <img src="" alt="">
+                        <h1> <a href="/">Food For Thought</a></h1>
+                    </div>
+                    <ul class="navlist flex">
+                         <!-- <li><a href="/">Home</a></li>-->
+                        <li><a href="/">Categories</a></li>
+                        <!-- <li><a href="/">Blog</a></li>-->
+                        <li><a href="/">My Recipes</a></li>
+                        <li><a href="/">My Account</a></li>
+                        <li><a href="/login.html">Sign Up</a></li>
+                    </ul>
+                    <div class="searchbar flex">
+                        <input type="checkbox" name="check-toggle" id="checkbox" hidden="">
+                        <label for="checkbox" class="toggle">
+                            <div class="toggle__circle"></div>
+                        </label>
+                        <i class="fa-solid fa-magnifying-glass" id="searchopen"></i>
+                        <div class="navonoff">
+
+                            <input type="checkbox"  id="checkbox2">
+                            <label for="checkbox2" class="toggle2">
+                                <div class="bar bar--top"></div>
+                                <div class="bar bar--middle"></div>
+                                <div class="bar bar--bottom"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="searchinput">
+                        <input type="text" placeholder="Search Here...">
+                        <i class="fa-solid fa-xmark" id="removesearch"></i>
+                    </div>
+                </div>
+            </div>
+    </header>
+
+    <main>
+
+
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Recipe Form</title>
+            <link rel="stylesheet" href=".css">
+        </head>
+        <body>
+            <div class="form-container">
+                <form id="recipe-form">
+                    <label for="recipe-name">Recipe Name</label>
+                    <input type="text" id="recipe-name" name="recipe-name" placeholder="Enter recipe name" required>
+        
+                    <label for="ingredients">Ingredients</label>
+                    <textarea id="ingredients" name="ingredients" placeholder="Enter ingredients" required></textarea>
+        
+                    <label for="instructions">Instruction</label>
+                    <textarea id="instructions" name="instructions" placeholder="Enter instructions" required></textarea>
+        
+                    <button type="submit" id="submit-recipe">Submit Recipe</button>
+                </form>
+            </div>
+        
+            <script src="script.js"></script>
+        </body>
+        </html>
+        
+
+
+
+    <script src="/js/index.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+</html>

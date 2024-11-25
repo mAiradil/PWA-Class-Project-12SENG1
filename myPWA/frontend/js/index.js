@@ -179,3 +179,6 @@ navtoggle.addEventListener('change', ()=>{
         navlist.style.right = '-400px'
     }
 })
+
+
+// adding to favoruites. 
