@@ -13,7 +13,7 @@ window.addEventListener('scroll', () => {
 
 // slider header
 
-// DO NOT TOUCH
+// DO NOT TOUCH - FINISHED PIECE
 
 const posts = [
     {
@@ -181,4 +181,10 @@ navtoggle.addEventListener('change', ()=>{
 })
 
 
+navtoggle.addEventListener('change', ()=>{
+    
+})
+
 // adding to favoruites. 
+
+
