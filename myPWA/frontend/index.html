@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/darkmode.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+     
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -29,12 +29,12 @@
                 <div class="container flex">
                     <div class="logo flex">
                         <img src="" alt="">
-                        <h1> Food For Thought</h1>
+                        <h1> <a href="/">Food For Thought</a></h1>
                     </div>
                     <ul class="navlist flex">
                         <li><a href="/">Home</a></li>
                         <li><a href="/">Blog</a></li>
-                        <li><a href="/">Saved Recipes</a></li>
+                        <li><a href="/listrecipe.html">Saved Recipes</a></li>
                         <li><a href="/">Sign up</a></li>
                     </ul>
                     <div class="searchbar flex">
@@ -83,7 +83,7 @@
             </div>
             <div class="headercards flex">
                  <div class="headercard flex">
-                    <img src="../images/wonton.jpg" alt="">
+                    <img src="/img/alfredo.jpg" alt="">
                     <div class="hcardinfo">
                         <span>Asian</span>
                         <h3>Wonton Soup</h3>
@@ -91,14 +91,14 @@
                     
                 </div>
                 <div class="headercard flex">
-                    <img src="../images/alfredo.jpg" alt="">
+                    <img src="/img/alfredo.jpg" alt="">
                     <div class="hcardinfo">
                         <span>Italian</span>
-                        <h3>Creamy Shrimp Pasta</h3>
+                        <h3>Creamy Alfredo Pasta</h3>
                     </div>
                 </div>
                  <div class="headercard flex">
-                    <img src="../images/taco.jpg" alt="">
+                    <img src="/img/alfredo.jpg" alt="">
                     <div class="hcardinfo">
                         <span>Mexican</span>
                         <h3>Chicken Birria Tacoes</h3>
@@ -107,88 +107,35 @@
             </div>
         </section>
 
-        <section class="threecards container flex">
-            <div class="tcard">
-                <div class="tcardimg">
+
+        <section id="recipeList" class="threecards container flex">
+
+
+            <div class="tcard-recipe">
+                <div class="tcardimgrecipe">
                     <img src="img/post1.jpg" alt="">
-                    <span class="fa fa-star"></span>
                 </div>
-                <div class="tcardinfo flex">
-                    <label class="tlabel">Asian</label>
-                    <h2>Peri-peri Chicken Tray Bake</h2>
-                    <div class="star-rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </div>
-                    <p>5 ingredients is all you need to make this 
-                        <br> deliciously easy peri-peri chicken, 
-                        zucchini and potato tray bake.</p>
+                <div class="tcardinforecipe flex">
+                    <label class="tlabel">Salad</label>
+                    <h2>Sunday Best Fruit Salad With Best recipe</h2>
+                     
+                    <p>TPellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                        Vestibulum tortor quam, feugiat vitae, ultricies</p>
                     <ul class="flex">
                         <li><i class="fa-solid fa-user"></i>by</li>
-                        <li><i class="fa-regular fa-clock"></i>70 Mins</li>
+                        <li><i class="fa-regular fa-clock"></i>10 Mins</li>
                         <li><i class="fa-regular fa-heart"></i>25 Like</li>
                     </ul>
-                    <a href="recipe.html" class="tcardbtn">Read More</a>
+                    <a href="recipe.html" class="tcardbtnrecipe">Read More</a>
                 </div>
             </div>
-
-            <div class="tcard">
-                <div class="tcardimg">
-                    <img src="img/post2.jpg" alt="">
-                    <span class="fa fa-star"></span>
-                </div>
-                <div class="tcardinfo flex">
-                    <label class="tlabel">Italian</label>
-                    <h2>Bruschetta with Beef Tartare</h2>
-                    <div class="star-rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </div>
-                    <p>Bruschetta topped with tender beef 
-                        tartare, fresh herbs, and a hint of <br>
-                        citrus for a bold yet refreshing appetiser</p>
-                    <ul class="flex">
-                        <li><i class="fa-solid fa-user"></i>by</li>
-                        <li><i class="fa-regular fa-clock"></i>30 Mins</li>
-                        <li><i class="fa-regular fa-heart"></i>18 Like</li>
-                    </ul>
-                    <a href="/" class="tcardbtn">Read More</a>
-                </div>
-            </div>
-
-            <div class="tcard">
-                <div class="tcardimg">
-                    <img src="img/post3.jpg" alt="">
-                    <span class="fa fa-star"></span>
-                </div>
-                <div class="tcardinfo flex">
-                    <label class="tlabel">Mexican</label>
-                    <h2>Mexican Pasta with Salsa Roja</h2>
-                    <div class="star-rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </div>
-                    <p>Mexican pasta is a great 
-                     <br> vegetarian dish with a spicy  
-                     <br> salsa roja sauce              </p>
-                    <ul class="flex">
-                        <li><i class="fa-solid fa-user"></i>by</li>
-                        <li><i class="fa-regular fa-clock"></i>50 Mins</li>
-                        <li><i class="fa-regular fa-heart"></i>48 Like</li>
-                    </ul>
-                    <a href="/" class="tcardbtn">Read More</a>
-                </div>
-            </div>
+ 
+ 
         </section>
+
+
+                        <span class="fa fa-star checked"></span>
+
 
         <section class="categoriescards container flex">
             <a href="" class="catecard">
@@ -227,19 +174,14 @@
             </a>
         </section>
 
+        
 
-
-
-
-       
 
 
     </main>
 
 
-
-
-
+ 
 
 
     <br>
@@ -266,7 +208,7 @@
 
 
 
-    <script src="js/index.js"></script>
+    <script src="/js/index.js"></script>
     
 </body>
 </html>
