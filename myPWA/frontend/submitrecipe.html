@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food For Thought</title>
+    <link rel="stylesheet" href="/css/style.css">
     
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/login.css">
+ 
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -66,38 +68,96 @@
 
 
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Recipe Form</title>
-            <link rel="stylesheet" href=".css">
-        </head>
-        <body>
-            <div class="form-container">
-                <form id="recipe-form">
-                    <label for="recipe-name">Recipe Name</label>
-                    <input type="text" id="recipe-name" name="recipe-name" placeholder="Enter recipe name" required>
-        
-                    <label for="ingredients">Ingredients</label>
-                    <textarea id="ingredients" name="ingredients" placeholder="Enter ingredients" required></textarea>
-        
-                    <label for="instructions">Instruction</label>
-                    <textarea id="instructions" name="instructions" placeholder="Enter instructions" required></textarea>
-        
-                    <button type="submit" id="submit-recipe">Submit Recipe</button>
+
+        <section class="submitrecipesection">
+            <div class="submitrecipeinfo">
+                 
+                <h2>Submit Recipe</h2>
+                
+                <h4 style="color: #ff0000;" id="recipemessage"></h4>
+                <form id="recipeForm" class="sign-up-form">
+                    <label for="recipe-name"> Recipe Name</label>
+                    <div class="input-group">
+                        <input type="text" id="recipename" placeholder="Recipe Name" required>
+                         
+                    </div>
+
+                    <label for="recipe-category"> Category</label>
+                    <div class="input-group" id="recipecategory"> 
+                    </div>
+
+                    <label for="recipe-subcategory"> SubCategory</label>
+                    
+                    <div class="input-group" id="recipesubcategory"> 
+                    </div>
+
+                        
+
+                    <label for="recipe-recipetype"> Type</label>
+                    <div class="input-group" id="recipetype"> 
+                    </div>
+
+                    
+                    
+                    <label for="recipe-ingredient">Ingredient</label>
+                    <div class="input-group">
+                        <!-- Create the editor container -->
+                        <div id="editor-ing">
+                            <p><br /></p>
+                        </div>
+                    </div>
+                    
+                   
+                    <label for="recipe-instructions">Instructions</label>
+                    <div class="input-group">
+                        <!-- Create the editor container -->
+                        <div id="editor-ins">
+                            <p><br /></p>
+                        </div>
+                    </div>
+                    
+
+                    <label for="recipe-image">Image Path</label>
+                    <input type="text" id="recipeimage" placeholder="Recipe Image path (/img/recipe/Alfredo.jpg)" required>
+
+
+                    <button type="submit">Submit</button>
+
                 </form>
             </div>
-        
-            <script src="script.js"></script>
-        </body>
-        </html>
-        
+        </section>
+    </main>
 
 
 
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<br>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script type="text/javascript">
+        const quill_ins = new Quill('#editor-ins', {
+            theme: 'snow'
+        });
+        const quill_ing = new Quill('#editor-ing', {
+            theme: 'snow'
+        });
+
+    </script>
     <script src="/js/index.js"></script>
-    <script src="/js/login.js"></script>
+    
+    
+
+    <script>
+  
+</script>
+
 </body>
 </html>

@@ -8,8 +8,8 @@
     
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/login.css">
-    
+ 
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -67,31 +67,59 @@
 
 
 
-        <section class="loginsection">
-            <div class="logininfo">
-                <h1>Start your journey</h1>
-                <br>
+        <section class="submitrecipesection">
+            <div class="submitrecipeinfo">
+                 
+                <h2>Submit Recipe</h2>
                 
-                <h2>Sign Up to <span class="highlight"> Food For Thought</span></h2>
-                
-
-                <form action="#" class="sign-up-form">
-                    <label for="email">E-mail</label>
+                <h4 style="color: #ff0000;" id="recipemessage"></h4>
+                <form id="recipeForm" class="sign-up-form">
+                    <label for="recipe-name"> Recipe Name</label>
                     <div class="input-group">
-                        <input type="email" id="email" placeholder="example@gmail.com" required>
-                        <span class="input-icon">&#x2709;</span> <!-- Email icon (envelope) -->
+                        <input type="text" id="recipename" placeholder="Recipe Name" required>
+                         
                     </div>
-                  
-                    
-                    <label for="password">Password</label>
-                    <div class="input-group">
-                        <input type="password" id="password" placeholder="" required>
-                        <span class="input-icon toggle-password" onclick="togglePassword()">👁</span>
-                    </div>
-                    
-                    <br> 
 
-                    <button type="submit">Sign Up</button>
+                    <label for="recipe-category"> Category</label>
+                    <div class="input-group" id="recipecategory"> 
+                    </div>
+
+                    <label for="recipe-subcategory"> SubCategory</label>
+                    
+                    <div class="input-group" id="recipesubcategory"> 
+                    </div>
+
+                        
+
+                    <label for="recipe-recipetype"> Type</label>
+                    <div class="input-group" id="recipetype"> 
+                    </div>
+
+                    
+                    
+                    <label for="recipe-ingredient">Ingredient</label>
+                    <div class="input-group">
+                        <!-- Create the editor container -->
+                        <div id="editor-ing">
+                            <p><br /></p>
+                        </div>
+                    </div>
+                    
+                   
+                    <label for="recipe-instructions">Instructions</label>
+                    <div class="input-group">
+                        <!-- Create the editor container -->
+                        <div id="editor-ins">
+                            <p><br /></p>
+                        </div>
+                    </div>
+                    
+
+                    <label for="recipe-image">Image Path</label>
+                    <input type="text" id="recipeimage" placeholder="Recipe Image path (/img/recipe/Alfredo.jpg)" required>
+
+
+                    <button type="submit">Submit</button>
 
                 </form>
             </div>
@@ -109,10 +137,25 @@
 
 <br>
 
+    
 
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script type="text/javascript">
+        const quill_ins = new Quill('#editor-ins', {
+            theme: 'snow'
+        });
+        const quill_ing = new Quill('#editor-ing', {
+            theme: 'snow'
+        });
 
-
+    </script>
     <script src="/js/index.js"></script>
-    <script src="/js/login.js"></script>
+    
+    
+
+    <script>
+  
+</script>
+
 </body>
 </html>
