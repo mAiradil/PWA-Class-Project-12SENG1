@@ -33,9 +33,10 @@
                     </div>
                     <ul class="navlist flex">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/">Blog</a></li>
-                        <li><a href="/listrecipe.html">Saved Recipes</a></li>
-                        <li><a href="/">Sign up</a></li>
+                        <li><a href="/listrecipe.html">List All Recipes</a></li>
+                        <li  id="savedrecipeli"></li>
+                        <li id="signupli"><a href="/signup.html">Sign up</a></li>
+                        <li id="signinli"><a href="/signin.html">Sign In</a></li>
                     </ul>
                     <div class="searchbar flex">
                         <input type="checkbox" name="check-toggle" id="checkbox" hidden="">
@@ -114,6 +115,7 @@
             <div class="tcard-recipe">
                 <div class="tcardimgrecipe">
                     <img src="img/post1.jpg" alt="">
+                    <span class="fa fa-star"></span>
                 </div>
                 <div class="tcardinforecipe flex">
                     <label class="tlabel">Salad</label>
@@ -136,41 +138,25 @@
 
 
 
-        <section class="categoriescards container flex">
-            <a href="" class="catecard">
-                <div class="cateimg">
-                    <img src="img/asian.jpg" alt="">
-                </div>
-                <div class="catecardinfo flex">
-                    <span>6 Recipe</span>
-                    <h3>Asian</h3>
-                    <p>Lorem ipsum dolor sit amet adipisicing elit.</p>
-                    
-                </div>
-            </a>
-            <a href="" class="catecard">
-                <div class="cateimg">
-                    <img src="img/nacho.jpg" alt="">
-                </div>
-                <div class="catecardinfo flex">
-                    <span>6 Recipes</span>
-                    <h3>Mexican</h3>
-                    <p>Lorem ipsum dolor sit amet adipisicing elit.</p>
-                </div>
-            </a>
-            <a href="" class="catecard">
-                <div class="cateimg">
-                    <img src="img/shrimp.jpg" alt="">
-                </div>
-                <div class="catecardinfo flex">
-                    <span>6 Recipe</span>
-                    <h3>Italian</h3>
-                    <p>Lorem ipsum dolor sit amet adipisicing elit.</p>
-                </div>
-            </a>
-           
+        <section id="mainpagecatList" class="categoriescards container flex">
 
-            </a>
+        
+
+            <div>
+                <a href="" class="catecard">
+                    <div class="cateimg">
+                        <img src="img/asian.jpg" alt="">
+                    </div>
+                    <div class="catecardinfo flex">
+                        <span>6 Recipe</span>
+                        <h3>Asian</h3>
+                         
+                        
+                    </div>
+                </a>
+            </div>
+             
+             
         </section>
 
         

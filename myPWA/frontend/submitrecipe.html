@@ -23,7 +23,7 @@
                     <a href="/"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="/"><i class="fa-brands fa-youtube"></i></a>
                 </div>
-                <a href="/" class="srbtn">Submit Recipe <i class="fa-solid fa-plus"></i></a>
+                <a href="submitrecipe.html" class="srbtn">Submit Recipe <i class="fa-solid fa-plus"></i></a>
             </div>
         </div>
             <div class="mainnav">
@@ -33,12 +33,11 @@
                         <h1> <a href="/">Food For Thought</a></h1>
                     </div>
                     <ul class="navlist flex">
-                         <!-- <li><a href="/">Home</a></li>-->
-                        <li><a href="/">Categories</a></li>
-                        <!-- <li><a href="/">Blog</a></li>-->
-                        <li><a href="/">My Recipes</a></li>
-                        <li><a href="/">My Account</a></li>
-                        <li><a href="/login.html">Sign Up</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/listrecipe.html">List All Recipes</a></li>
+                        <li  id="savedrecipeli"></li>
+                        <li id="signupli"><a href="/signup.html">Sign up</a></li>
+                        <li id="signinli"><a href="/signin.html">Sign In</a></li>
                     </ul>
                     <div class="searchbar flex">
                         <input type="checkbox" name="check-toggle" id="checkbox" hidden="">
@@ -101,19 +100,17 @@
                     
                     <label for="recipe-ingredient">Ingredient</label>
                     <div class="input-group">
-                        <!-- Create the editor container -->
-                        <div id="editor-ing">
-                            <p><br /></p>
-                        </div>
+                        <textarea id="recipe-ingredient">
+
+                        </textarea>
                     </div>
                     
                    
                     <label for="recipe-instructions">Instructions</label>
                     <div class="input-group">
-                        <!-- Create the editor container -->
-                        <div id="editor-ins">
-                            <p><br /></p>
-                        </div>
+                        <textarea id="recipe-instructions">
+
+                        </textarea>
                     </div>
                     
 
@@ -141,14 +138,40 @@
 
     
 
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+     <script src="/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
-        const quill_ins = new Quill('#editor-ins', {
-            theme: 'snow'
-        });
-        const quill_ing = new Quill('#editor-ing', {
-            theme: 'snow'
-        });
+        tinymce.init({
+                menubar:false,
+                statusbar: false,
+                  selector: 'textarea#recipe-ingredient',
+                  height: 500,
+                  plugins: [
+                   'lists'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                  'bold italic backcolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent  ' ,
+                  advlist_bullet_styles: 'square'  ,
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+
+                  
+            });
+
+             tinymce.init({
+                menubar:false,
+                statusbar: false,
+                  selector: 'textarea#recipe-instructions',
+                  height: 500,
+                  plugins: [
+                   'lists'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                  'bold italic backcolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent  ' ,
+                  advlist_bullet_styles: 'square'  ,
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+ 
+            });
 
     </script>
     <script src="/js/index.js"></script>
