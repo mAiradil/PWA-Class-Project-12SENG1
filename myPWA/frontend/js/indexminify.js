@@ -252,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(pageName == "signin.html")
     { 
+
         signinForm.onsubmit = loginUser; 
     }
     if(pageName == "signup.html")
@@ -798,8 +799,9 @@ function UpdateRecipe(event) {
 
  
 function loginUser(event) {
-    document.getElementById('signinmessage').innerHTML =""
     event.preventDefault(); // Prevent form from submitting in the traditional way
+    document.getElementById('signinmessage').innerHTML =""
+   
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     // Ensure all fields are filled out
@@ -989,10 +991,11 @@ function loadSavedRecipes() {
         });
 }
 
+ 
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/js/service-worker.js')
+        navigator.serviceWorker.register('/service-worker.js')
             .then(registration => {
                 console.log('Service Worker registered with scope:', registration.scope);
             })

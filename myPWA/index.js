@@ -3,7 +3,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 7000;
-
+const compression = require('compression');
+app.use(compression());
 
 
 const sqlite3 = require('sqlite3').verbose();
@@ -17,7 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
  
-//app.use(cors());
 
 // Serve static files like HTML, CSS, and JS
 app.use(express.static(path.join(__dirname, 'frontend')));
@@ -363,13 +363,16 @@ app.post('/api/update-recipe/:id', (req, res) => {
 
 app.post('/api/login', (req, res) => {
     const { email, password} = req.body;
-
+  
     db.all('SELECT * FROM users where email= ?  and password = ? ', [email, password ], (err, row) => {
         if (err) {
+        
             res.status(500).send('Error retrieving data');
         } else if (!row) {
+          
             res.status(404).send('Invalid username or password. User does not exist');
         } else {
+           
             res.status(200).json(row);
         }
 

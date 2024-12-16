@@ -2,7 +2,7 @@
 
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./recipe.db');
+const db = new sqlite3.Database('../recipe.db');
 
 
 const resetDatabase = () => {
@@ -162,19 +162,19 @@ const resetDatabase = () => {
           {
             cat_id: "1",
             name: "Asian",
-            image_path: "/img/asian.jpg",
+            image_path: "/img/asian.webp",
             
           },
           {
             cat_id: "2",
             name: "Italian",
-            image_path: "/img/shrimp.jpg",
+            image_path: "/img/shrimp.webp",
              
           },
           {
             cat_id: "3",
             name: "Mexican",
-            image_path: "/img/nacho.jpg",
+            image_path: "/img/nacho.webp",
              
           },
         ];
