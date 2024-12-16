@@ -51,10 +51,10 @@ const posts = [
         label: "Pizza"
     },
     {
-        title: "Healthy Steak",
+        title: "Wrap",
         description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
         link: "https://example.com/slide3",
-        backgroundImage: "../img/steak-food.jpg",
+        backgroundImage: "../img/nacho.jpg",
         label: "Mexican"
     },
     {
@@ -198,25 +198,105 @@ document.addEventListener('DOMContentLoaded', () => {
     if(pageName == "")
     { 
         loadRecipes(); // Load recipe  when the page loads
+        loadMainPageCategories();
     }
 
     if(pageName == "recipe.html")
     { 
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');   
+
         loadRecipeById(id);  
     }
     if(pageName == "submitrecipe.html")
     { 
 
         recipeForm.onsubmit = addRecipe; 
-        loadCategories()
-        loadSubCategories()
-        loadTypes()
+        loadCategories(id='')
+        loadSubCategories(id='')
+        loadTypes(id='')
     }
+    
+    if(pageName == "listrecipe.html")
+    { 
+   
+        loadAllRecipes();  
+    }
+    if(pageName == "listrecipebycategory.html")
+    { 
+        const params = new URLSearchParams(window.location.search);
+        const cat_id = params.get('cat_id');  
+        loadRecipesByCategory(cat_id);  
+    }
+
+    if(pageName == "savedrecipe.html")
+    { 
+        if(getCookie('userid')){}else{ window.location.href = "/"; }
+        loadSavedRecipes();  
+    }
+    if(pageName == "editrecipe.html")
+    { 
+       
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');   
+        editRecipeById(id);  
+        recipeFormUpdate.onsubmit = UpdateRecipe; 
+         
+
+
+    }
+    if(pageName == "signin.html")
+    { 
+        signinForm.onsubmit = loginUser; 
+    }
+    if(pageName == "signup.html")
+    { 
+        signupForm.onsubmit = SignupUser; 
+    }
+
 
 });
 
+
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let c = cookies[i].trim();
+    if (c.indexOf(nameEQ) === 0) {
+      return c.substring(nameEQ.length, c.length);
+    }
+  }
+  return null;
+}
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+function logout(){
+    eraseCookie('userid')
+    window.location.href = "/";
+}
+
+if(getCookie('userid')){
+    document.getElementById('signupli').remove();
+    document.getElementById('savedrecipeli').innerHTML=`<a href="/savedrecipe.html">Saved Recipes</a>`;
+    
+    document.getElementById('signinli').innerHTML=`<a onclick="logout()">Logout</a>`;
+}else{
+    document.getElementById('savedrecipeli').remove();
+    document.getElementById('signupli').innerHTML=`<a href="/signup.html">Sign up</a>`;
+    
+}
 
 // Function to load recipe from the backend
 function loadRecipes() {
@@ -237,13 +317,14 @@ function loadRecipes() {
                 <div class="tcard-recipe">
                     <div class="tcardimgrecipe">
                         <img src="${session.image_path}" alt="">
+                        <span class="fa fa-star" onclick="saverecipe(${session.recipe_id})"></span>
                     </div>
                     <div class="tcardinforecipe flex">
                         <label class="tlabel">${session.catname}</label>
                         <h2>${session.title}</h2>
-                         
+                        <div class="recipedatadetail">
                         <p>${result_instructions}...</p>
-                         
+                        </div>
                         <a href="recipe.html?id=${session.recipe_id}" class="tcardbtnrecipe">Read More</a>
                     </div>
                 </div>
@@ -278,7 +359,7 @@ function loadRecipeById(id) {
                         <li>${data.typename}</li>
                      </ul>
                       <div id="recipebyid_breadcrumb_right">
-                        <button onclick="editRecipe(${data.recipe_id})">Edit</button>
+                        <button onclick="editReciperedirect(${data.recipe_id})">Edit</button>
                         <button onclick="deleteRecipe(${data.recipe_id})">Delete</button>
                     </div>`;
 
@@ -292,7 +373,7 @@ function loadRecipeById(id) {
 }
 
 
-// Function to add a new study session
+// Function to add a new recipe
 function addRecipe(event) {
 
     event.preventDefault(); // Prevent form from submitting in the traditional way
@@ -304,17 +385,13 @@ function addRecipe(event) {
     const recipesubcategoryval = document.getElementById('recipesubcategoryval').value;
     const recipetypeval = document.getElementById('recipetypeval').value;
 
-    const length_ing = quill_ing.getLength();
-    const html_ing = quill_ing.getSemanticHTML();
-    const length_ins = quill_ins.getLength();
-    const html_ins = quill_ins.getSemanticHTML();
-
+    var html_ing = tinymce.get("recipe-ingredient").getContent();
+    var html_ins = tinymce.get("recipe-instructions").getContent();
 
  
-
     // Ensure all fields are filled out
-    if (recipename && recipeimage && length_ing >1 && length_ins > 1) {
-        // Send a POST request to add the study session
+    if (recipename && recipeimage && html_ing != ""  && html_ins != "" ) {
+        // Send a POST request to add the recipe
         fetch('http://localhost:7000/api/add-recipe', {
             method: 'POST',
             headers: {
@@ -328,8 +405,7 @@ function addRecipe(event) {
             document.getElementById('recipemessage').innerHTML ="Recipe  added"
 
             recipeForm.reset(); // Clear the form fields
-            quill_ins.setText('');
-            quill_ing.setText('');
+             
 
         })
         .catch(error => {
@@ -344,7 +420,7 @@ function addRecipe(event) {
 
 
 // Function to load categories from the backend
-function loadCategories() {
+function loadCategories(id) {
     fetch('http://localhost:7000/api/get-categories')
         .then(response => response.json())
         .then(data => {
@@ -352,8 +428,11 @@ function loadCategories() {
             cattext='<select name="recipe-category"" id="recipecategoryval" required>'
             recipecategory.innerHTML=''
             data.forEach(session => {
-                 
-                cattext+=`<option value='${session.cat_id}'>${session.name}</option>`
+                if(id == session.cat_id){
+                    cattext+=`<option value='${session.cat_id}' selected>${session.name}</option>`
+                }else{
+                    cattext+=`<option value='${session.cat_id}' >${session.name}</option>`
+                }
                 
  ;
             });
@@ -366,7 +445,7 @@ function loadCategories() {
 }
 
 // Function to loadSubCategories from the backend
-function loadSubCategories() {
+function loadSubCategories(id) {
     fetch('http://localhost:7000/api/get-subcategories')
         .then(response => response.json())
         .then(data => {
@@ -374,8 +453,12 @@ function loadSubCategories() {
             cattext='<select name="recipe-category"" id="recipesubcategoryval" required>'
             recipesubcategory.innerHTML=''
             data.forEach(session => {
-                 
-                cattext+=`<option value='${session.subcat_id}'>${session.name}</option>`
+                if(id == session.subcat_id){
+                    cattext+=`<option value='${session.subcat_id}' selected>${session.name}</option>`
+                }else{
+                    cattext+=`<option value='${session.subcat_id}'>${session.name}</option>`
+                } 
+                
                 
  ;
             });
@@ -388,7 +471,7 @@ function loadSubCategories() {
 }
 
 // Function to loadTypes from the backend
-function loadTypes() {
+function loadTypes(id) {
     fetch('http://localhost:7000/api/get-recipetypes')
         .then(response => response.json())
         .then(data => {
@@ -396,8 +479,13 @@ function loadTypes() {
             cattext='<select name="recipe-category"" id="recipetypeval" required>'
             recipetype.innerHTML=''
             data.forEach(session => {
-                 
-                cattext+=`<option value='${session.type_id}'>${session.name}</option>`
+                if(id == session.type_id){
+                    cattext+=`<option value='${session.type_id}' selected>${session.name}</option>`
+                }else{
+                    cattext+=`<option value='${session.type_id}'>${session.name}</option>`
+                }
+
+                
                 
  ;
             });
@@ -428,7 +516,7 @@ function deleteRecipe(id) {
             // Log a message to the console to indicate success
             console.log('Recipe  deleted');
            
-            window.location.href = "/";
+            window.location.href = "/listrecipe.html";
         })
         // Handle any errors that occur during the fetch request
         .catch(error => {
@@ -440,3 +528,458 @@ function deleteRecipe(id) {
 }
 
 
+// Function to load recipe from the backend
+function loadAllRecipes() {
+
+    fetch('http://localhost:7000/api/get-all-recipe')
+        .then(response => response.json())
+        .then(data => {
+            recipeListAll.innerHTML = ''; // Clear the existing list
+            data.forEach(recipedata => {
+
+                const recipeItem = document.createElement('div');
+
+                const instructions = recipedata.instructions.split(/\s+/);
+                // Take the first 200 words.
+                const first200Words = instructions.slice(0, 30);
+                const result_instructions = first200Words.join(' ');
+
+                recipeItem.className = 'recipe-item';
+                recipeItem.innerHTML = `
+
+                <div class="tcard-recipe-all">
+                    <div class="tcardimgrecipeall">
+                        <img src="${recipedata.image_path}" alt="">
+                        <span class="fa fa-star" onclick="saverecipe(${recipedata.recipe_id})"></span>
+                    </div>
+                    <div class="tcardinforecipeall">
+                        <label class="tlabel">${recipedata.catname} - ${recipedata.subcatname} - ${recipedata.typename}</label>
+                        <h2>${recipedata.title}</h2>
+                        <div>
+                            ${result_instructions}...
+                        </div>
+                        <div style="padding-top: 18px;">
+                            <a href="recipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">View</a>
+                            <a href="editrecipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">Edit </a>
+                            <a href="#" onclick="deleteRecipe(${recipedata.recipe_id})" class="tcardbtnrecipe">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                   
+                `;
+                recipeListAll.appendChild(recipeItem);
+
+                //alert(recipeList)
+            });
+        })
+        .catch(error => {
+
+            document.getElementById('recipeListAll').innerHTML="No Recipe/s Found"
+            console.error('Error fetching recipes:', error);
+        });
+}
+
+
+
+
+function loadRecipesByCategory(cat_id) {
+
+    fetch(`http://localhost:7000/api/get-recipe-by-category/${cat_id}`)
+        .then(response => response.json())
+        .then(data => {
+            recipeListAll.innerHTML = ''; // Clear the existing list
+            if(data == ''){
+                document.getElementById('recipeListAll').innerHTML ="No recipe found under this category"
+            }else{
+
+                data.forEach(recipedata => {
+
+                    const recipeItem = document.createElement('div');
+
+                    const instructions = recipedata.instructions.split(/\s+/);
+                    // Take the first 200 words.
+                    const first200Words = instructions.slice(0, 30);
+                    const result_instructions = first200Words.join(' ');
+
+                    recipeItem.className = 'recipe-item';
+                    recipeItem.innerHTML = `
+
+                    <div class="tcard-recipe-all">
+                        <div class="tcardimgrecipeall">
+                            <img src="${recipedata.image_path}" alt="">
+                            <span class="fa fa-star" onclick="saverecipe(${recipedata.recipe_id})"></span>
+                        </div>
+                        <div class="tcardinforecipeall">
+                            <label class="tlabel">${recipedata.catname} - ${recipedata.subcatname} - ${recipedata.typename}</label>
+                            <h2>${recipedata.title}</h2>
+                            <div>${result_instructions}...</div>
+                            <div style="padding-top: 18px;">
+                                <a href="recipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">View</a>
+                                <a href="editrecipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">Edit </a>
+                                <a href="#" onclick="deleteRecipe(${recipedata.recipe_id})" class="tcardbtnrecipe">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                       
+                    `;
+                    recipeListAll.appendChild(recipeItem);
+
+                    //alert(recipeList)
+                });
+            }
+        })
+        .catch(error => {
+
+            document.getElementById('recipeListAll').innerHTML="No Recipe/s Found"
+            console.error('Error fetching recipes:', error);
+        });
+}
+
+
+function loadMainPageCategories() {
+    fetch('http://localhost:7000/api/get-main-page-categories')
+        .then(response => response.json())
+        .then(data => {
+            mainpagecatList.innerHTML = ''; // Clear the existing list
+            data.forEach(catdata => {
+
+                const mainpagecatItem = document.createElement('div');
+
+                
+                mainpagecatItem.innerHTML = `
+
+                <a href="listrecipebycategory.html?cat_id=${catdata.cat_id}" class="catecard">
+                    <div class="cateimg">
+                        <img src="${catdata.image_path}" alt="">
+                    </div>
+                    <div class="catecardinfo flex">
+                        <span>${catdata.TotalCount} Recipe</span>
+                        <h3>${catdata.name}</h3>
+                    </div>
+                </a>
+
+ 
+                   
+                `;
+                mainpagecatList.appendChild(mainpagecatItem);
+
+                //alert(recipeList)
+            });
+        })
+        .catch(error => {
+
+            document.getElementById('mainpagecatList').innerHTML="No Category/s Found"
+            console.error('Error fetching :', error);
+        });
+}
+
+
+
+function editRecipeById(id) {
+
+    fetch('http://localhost:7000/api/get-recipe/'+id)
+        .then(response => response.json())
+        .then(data => {
+            loadCategories(data.catid)
+            loadSubCategories(data.subcatid)
+            loadTypes(data.typeid)
+            // Display the fetched data
+            document.getElementById('recipename').value=data.title
+            document.getElementById('recipeid').value=id
+            
+
+            document.getElementById('recipeimage').value=data.image_path
+          
+             tinymce.init({
+                menubar:false,
+                statusbar: false,
+                  selector: 'textarea#recipe-ingredient',
+                  height: 500,
+                  plugins: [
+                   'lists'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                  'bold italic backcolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent  ' ,
+                  advlist_bullet_styles: 'square'  ,
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+
+                  setup: (editor) => {
+                          editor.on('init', () => {
+                            editor.setContent(data.ingredients);
+                          });
+                        },
+            });
+
+             tinymce.init({
+                menubar:false,
+                statusbar: false,
+                  selector: 'textarea#recipe-instructions',
+                  height: 500,
+                  plugins: [
+                   'lists'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                  'bold italic backcolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent  ' ,
+                  advlist_bullet_styles: 'square'  ,
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+
+                  setup: (editor) => {
+                          editor.on('init', () => {
+                            editor.setContent(data.instructions);
+                          });
+                        },
+            });
+             
+         })
+        .catch(error => {
+            //console.error('Error fetching recipes:', error);
+        });
+}
+
+// Function to update a  
+function editReciperedirect(id) {
+    window.location.href = "/editrecipe.html?id="+id;
+}
+// Function to update a  
+function UpdateRecipe(event) {
+
+    event.preventDefault(); // Prevent form from submitting in the traditional way
+
+    const recipeid = document.getElementById('recipeid').value;
+    const recipename = document.getElementById('recipename').value;
+    const recipeimage = document.getElementById('recipeimage').value;
+    const recipecategoryval = document.getElementById('recipecategoryval').value;
+    const recipesubcategoryval = document.getElementById('recipesubcategoryval').value;
+    const recipetypeval = document.getElementById('recipetypeval').value;
+
+     
+
+    var html_ing = tinymce.get("recipe-ingredient").getContent();
+    var html_ins = tinymce.get("recipe-instructions").getContent();
+
+ 
+    // Ensure all fields are filled out
+    if (recipename && recipeimage && html_ing != ""  && html_ins != "" ) {
+        // Send a POST request to add the recipe
+        fetch('http://localhost:7000/api/update-recipe/'+recipeid, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ recipeid, recipename, html_ing, html_ins ,recipeimage, recipecategoryval, recipesubcategoryval, recipetypeval}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Recipe  Updated:', data);
+            document.getElementById('recipemessage').innerHTML ="Recipe  Updated"
+            window.location.href = "/listrecipe.html";
+            //recipeForm.reset(); // Clear the form fields
+            //quill_ins.setText('');
+            //quill_ing.setText('');
+
+        })
+        .catch(error => {
+            document.getElementById('recipemessage').innerHTML ="ERROR while updating recipe"
+            console.error('Error:', error);
+        });
+    } else {
+        alert('Please fill in all required fields.');
+    }
+}
+
+
+
+ 
+function loginUser(event) {
+    document.getElementById('signinmessage').innerHTML =""
+    event.preventDefault(); // Prevent form from submitting in the traditional way
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    // Ensure all fields are filled out
+    if (email && password ) {
+        // Send a POST request  
+        fetch('http://localhost:7000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log('   added:', data);
+            if(data == ''){
+                document.getElementById('signinmessage').innerHTML ="Invalid user/password OR user does not exist"
+            }else{
+                if(data[0]['user_id'] != ''){
+                    setCookie('userid' ,data[0]['user_id'] ,1 )
+                    window.location.href = "/";
+
+                }
+                 
+            }
+
+        })
+        .catch(error => {
+            document.getElementById('signinmessage').innerHTML ="Invalid user/password OR user does not exist"
+            console.error('Error:', error);
+        });
+
+
+    } else {
+        alert('Please fill in all required fields.');
+    }
+    //document.getElementById('signinmessage').innerHTML ="Invalid user/password"
+
+}
+
+
+SignupUser
+
+function SignupUser(event) {
+    document.getElementById('signupmessage').innerHTML =""
+    event.preventDefault(); // Prevent form from submitting in the traditional way
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    // Ensure all fields are filled out
+    if (email && password ) {
+        // Send a POST request  
+        fetch('http://localhost:7000/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log('   added:', data);
+            document.getElementById('signupmessage').innerHTML ="User created"
+
+        })
+        .catch(error => {
+            document.getElementById('signupmessage').innerHTML ="Error while creating user"
+            console.error('Error:', error);
+        });
+
+    } else {
+        alert('Please fill in all required fields.');
+    }
+
+}
+
+
+function saverecipe(id){
+
+    recp_id = id
+    usr_id = getCookie('userid')
+
+    fetch('http://localhost:7000/api/add-user-recipe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ recp_id, usr_id}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Recipe  added:', data);
+            alert("Recipe  added to favourite")
+ 
+        })
+        .catch(error => {
+           
+            console.error('Error:', error);
+        });
+
+
+
+ }
+
+removerecipe
+
+function removerecipe(id){
+
+    recp_id = id
+    usr_id = getCookie('userid')
+
+    fetch('http://localhost:7000/api/remove-user-recipe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ recp_id, usr_id}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Recipe  added:', data);
+            window.location.href = "/savedrecipe.html";
+
+ 
+        })
+        .catch(error => {
+           
+            console.error('Error:', error);
+        });
+
+
+
+ }
+
+// Function to load recipe from the backend
+function loadSavedRecipes() {
+    usr_id = getCookie('userid')
+ 
+    fetch('http://localhost:7000/api/get-saved-recipe/'+usr_id)
+        .then(response => response.json())
+        .then(data => {
+            if(data != ''){
+                recipeListAll.innerHTML = ''; // Clear the existing list
+                data.forEach(recipedata => {
+
+                    const recipeItem = document.createElement('div');
+
+                    const instructions = recipedata.instructions.split(/\s+/);
+                    // Take the first 200 words.
+                    const first200Words = instructions.slice(0, 30);
+                    const result_instructions = first200Words.join(' ');
+
+                    recipeItem.className = 'recipe-item';
+                    recipeItem.innerHTML = `
+
+                    <div class="tcard-recipe-all">
+                        <div class="tcardimgrecipeall">
+                            <img src="${recipedata.image_path}" alt="">
+                            <span class="fa fa-circle-xmark" onclick="removerecipe(${recipedata.recipe_id})"></span>
+                        </div>
+                        <div class="tcardinforecipeall">
+                            <label class="tlabel">${recipedata.catname} - ${recipedata.subcatname} - ${recipedata.typename}</label>
+                            <h2>${recipedata.title}</h2>
+                            <div>${result_instructions}...</div>
+                            <div style="padding-top: 18px;">
+                                <a href="recipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">View</a>
+                                <a href="editrecipe.html?id=${recipedata.recipe_id}" class="tcardbtnrecipe">Edit </a>
+                                <a href="#" onclick="deleteRecipe(${recipedata.recipe_id})" class="tcardbtnrecipe">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                       
+                    `;
+                    recipeListAll.appendChild(recipeItem);
+
+                    //alert(recipeList)
+                });
+            }else{
+                document.getElementById('recipeListAll').innerHTML="No Recipe/s Found in favourite"
+            }
+        })
+        .catch(error => {
+
+            
+            console.error('Error fetching recipes:', error);
+        });
+}
