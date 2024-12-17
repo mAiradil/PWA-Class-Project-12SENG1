@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/login.css">
     
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
 
@@ -77,14 +78,14 @@
                 <form id="signinForm" class="sign-up-form">
                     <label for="email">E-mail</label>
                     <div class="input-group">
-                        <input type="email" id="email" placeholder="example@gmail.com" required>
+                        <input type="email" id="signinemail" placeholder="example@gmail.com" required>
                         <span class="input-icon">&#x2709;</span> <!-- Email icon (envelope) -->
                     </div>
                   
                     
                     <label for="password">Password</label>
                     <div class="input-group">
-                        <input type="password" id="password" placeholder="" required>
+                        <input type="password" id="signinpassword" placeholder="" required>
                         <span class="input-icon toggle-password" onclick="togglePassword()">👁</span>
                     </div>
                     
@@ -112,7 +113,7 @@
 
 
 
-    <script src="/js/indexminify.js"  defer></script>
-    <script src="/js/login.js"  defer ></script> 
+    <script src="/js/indexminify.js" ></script>
+    <script src="/js/login.js" ></script> 
 </body>
 </html>

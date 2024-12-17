@@ -11,23 +11,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-if(pageName == "submitrecipe.html")
-{ 
-    /*const quill_ins = new Quill('#editor-ins', {
-        theme: 'snow'
-    });
-    const quill_ing = new Quill('#editor-ing', {
-        theme: 'snow'
-    });*/
-}
-
-
-
-
 // slider header
-
-// DO NOT TOUCH
-
 const posts = [
    /* {
         title: "Browny Cookies",
@@ -74,7 +58,7 @@ const posts = [
 
  
 let currentSlide = 0;
-
+//define page name to load specific functions
 if(pageName == "")
 {   
  
@@ -85,19 +69,12 @@ if(pageName == "")
         document.querySelector('.headerbtn').href = slide.link;
         document.querySelector('.headerimg').style.backgroundImage = `url(${slide.backgroundImage})`;
     }
-
-
-
-
-
     // Initial slide
     showSlide(currentSlide);
 }else{}
 
 // header posts change slider
 const headerPosts = document.querySelector('.headercards');
-
-
 const headerPostsCards = () => {
 
     const updateSlider = () => {
@@ -151,8 +128,8 @@ function nextSlide() {
 }
 if(pageName == "")
 {   
-// Change slide every 3 seconds
-setInterval(nextSlide, 3000);
+    // Change slide every 3 seconds
+    setInterval(nextSlide, 3000);
 }else{}
 
 
@@ -224,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if(pageName == "listrecipe.html")
     { 
-   
         loadAllRecipes();  
     }
     if(pageName == "listrecipebycategory.html")
@@ -246,13 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = params.get('id');   
         editRecipeById(id);  
         recipeFormUpdate.onsubmit = UpdateRecipe; 
-         
-
-
     }
     if(pageName == "signin.html")
     { 
-
         signinForm.onsubmit = loginUser; 
     }
     if(pageName == "signup.html")
@@ -263,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
+//set cookie function for sign in user
 function setCookie(name, value, days) {
   const date = new Date();
   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
@@ -271,7 +243,7 @@ function setCookie(name, value, days) {
   document.cookie = `${name}=${value};${expires};path=/`;
 }
 
-
+//getcookie function to check user signed in or not
 function getCookie(name) {
   const nameEQ = name + "=";
   const cookies = document.cookie.split(';');
@@ -284,15 +256,18 @@ function getCookie(name) {
   return null;
 }
 
+//erase cookie when user click on logout
 function eraseCookie(name) {   
     document.cookie = name+'=; Max-Age=-99999999;';  
 }
 
+//logout function when user click on logout link
 function logout(){
     eraseCookie('userid')
     window.location.href = "/";
 }
 
+//If user signed in the change the top nav bar
 if(getCookie('userid')){
     document.getElementById('signupli').remove();
     document.getElementById('savedrecipeli').innerHTML=`<a href="/savedrecipe.html">Saved Recipes</a>`;
@@ -334,9 +309,6 @@ function loadRecipes() {
                         <a href="recipe.html?id=${session.recipe_id}" class="tcardbtnrecipe">Read More</a>
                     </div>
                 </div>
-
-
-                   
                 `;
                 recipeList.appendChild(recipeItem);
 
@@ -348,6 +320,7 @@ function loadRecipes() {
         });
 }
 
+//Load the recipe by recipe id
 function loadRecipeById(id) {
 
     fetch('http://localhost:7000/api/get-recipe/'+id)
@@ -381,9 +354,7 @@ function loadRecipeById(id) {
 
 // Function to add a new recipe
 function addRecipe(event) {
-
     event.preventDefault(); // Prevent form from submitting in the traditional way
-
 
     const recipename = document.getElementById('recipename').value;
     const recipeimage = document.getElementById('recipeimage').value;
@@ -438,8 +409,7 @@ function loadCategories(id) {
                     cattext+=`<option value='${session.cat_id}' selected>${session.name}</option>`
                 }else{
                     cattext+=`<option value='${session.cat_id}' >${session.name}</option>`
-                }
-                
+                }            
  ;
             });
             cattext +='</select>'
@@ -463,10 +433,7 @@ function loadSubCategories(id) {
                     cattext+=`<option value='${session.subcat_id}' selected>${session.name}</option>`
                 }else{
                     cattext+=`<option value='${session.subcat_id}'>${session.name}</option>`
-                } 
-                
-                
- ;
+                } ;
             });
             cattext +='</select>'
             recipesubcategory.innerHTML = cattext
@@ -476,7 +443,7 @@ function loadSubCategories(id) {
         });
 }
 
-// Function to loadTypes from the backend
+// Function to load Recipe Types from the backend
 function loadTypes(id) {
     fetch('http://localhost:7000/api/get-recipetypes')
         .then(response => response.json())
@@ -489,10 +456,7 @@ function loadTypes(id) {
                     cattext+=`<option value='${session.type_id}' selected>${session.name}</option>`
                 }else{
                     cattext+=`<option value='${session.type_id}'>${session.name}</option>`
-                }
-
-                
-                
+                }     
  ;
             });
             cattext +='</select>'
@@ -504,7 +468,7 @@ function loadTypes(id) {
 }
 
 
-// Define a function to delete a specific recipe
+// Define a function to delete a specific recipe by ID
 function deleteRecipe(id) {
    
     // Display a confirmation dialog to the user before proceeding
@@ -587,7 +551,7 @@ function loadAllRecipes() {
 
 
 
-
+//Function to load the recipes by categrories id
 function loadRecipesByCategory(cat_id) {
 
     fetch(`http://localhost:7000/api/get-recipe-by-category/${cat_id}`)
@@ -629,8 +593,6 @@ function loadRecipesByCategory(cat_id) {
                        
                     `;
                     recipeListAll.appendChild(recipeItem);
-
-                    //alert(recipeList)
                 });
             }
         })
@@ -641,17 +603,14 @@ function loadRecipesByCategory(cat_id) {
         });
 }
 
-
+//FUnction to load the categories on home page
 function loadMainPageCategories() {
     fetch('http://localhost:7000/api/get-main-page-categories')
         .then(response => response.json())
         .then(data => {
             mainpagecatList.innerHTML = ''; // Clear the existing list
             data.forEach(catdata => {
-
                 const mainpagecatItem = document.createElement('div');
-
-                
                 mainpagecatItem.innerHTML = `
 
                 <a href="listrecipebycategory.html?cat_id=${catdata.cat_id}" class="catecard">
@@ -663,13 +622,9 @@ function loadMainPageCategories() {
                         <h3>${catdata.name}</h3>
                     </div>
                 </a>
-
- 
                    
                 `;
                 mainpagecatList.appendChild(mainpagecatItem);
-
-                //alert(recipeList)
             });
         })
         .catch(error => {
@@ -680,7 +635,7 @@ function loadMainPageCategories() {
 }
 
 
-
+//FUnction to edit the recipe by ID
 function editRecipeById(id) {
 
     fetch('http://localhost:7000/api/get-recipe/'+id)
@@ -744,11 +699,12 @@ function editRecipeById(id) {
         });
 }
 
-// Function to update a  
+// load the edit recipe page  
 function editReciperedirect(id) {
     window.location.href = "/editrecipe.html?id="+id;
 }
-// Function to update a  
+
+// Function to update a recipe after editing 
 function UpdateRecipe(event) {
 
     event.preventDefault(); // Prevent form from submitting in the traditional way
@@ -781,10 +737,6 @@ function UpdateRecipe(event) {
             console.log('Recipe  Updated:', data);
             document.getElementById('recipemessage').innerHTML ="Recipe  Updated"
             window.location.href = "/listrecipe.html";
-            //recipeForm.reset(); // Clear the form fields
-            //quill_ins.setText('');
-            //quill_ing.setText('');
-
         })
         .catch(error => {
             document.getElementById('recipemessage').innerHTML ="ERROR while updating recipe"
@@ -795,17 +747,16 @@ function UpdateRecipe(event) {
     }
 }
 
-
-
- 
+//Function when user click on sign in to login 
 function loginUser(event) {
     event.preventDefault(); // Prevent form from submitting in the traditional way
     document.getElementById('signinmessage').innerHTML =""
    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('signinemail').value;
+    const password = document.getElementById('signinpassword').value;
     // Ensure all fields are filled out
     if (email && password ) {
+       
         // Send a POST request  
         fetch('http://localhost:7000/api/login', {
             method: 'POST',
@@ -816,7 +767,6 @@ function loginUser(event) {
         })
         .then(response => response.json())
         .then(data => {
-            
             console.log('   added:', data);
             if(data == ''){
                 document.getElementById('signinmessage').innerHTML ="Invalid user/password OR user does not exist"
@@ -839,18 +789,14 @@ function loginUser(event) {
     } else {
         alert('Please fill in all required fields.');
     }
-    //document.getElementById('signinmessage').innerHTML ="Invalid user/password"
-
 }
 
-
-SignupUser
-
+//Function when user sign up with email and password
 function SignupUser(event) {
     document.getElementById('signupmessage').innerHTML =""
     event.preventDefault(); // Prevent form from submitting in the traditional way
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('signupemail').value;
+    const password = document.getElementById('signuppassword').value;
     // Ensure all fields are filled out
     if (email && password ) {
         // Send a POST request  
@@ -866,6 +812,7 @@ function SignupUser(event) {
             
             console.log('   added:', data);
             document.getElementById('signupmessage').innerHTML ="User created"
+            signupForm.reset();
 
         })
         .catch(error => {
@@ -879,7 +826,7 @@ function SignupUser(event) {
 
 }
 
-
+//Function to save recipe ID when user logged in as user favourite recipe
 function saverecipe(id){
 
     recp_id = id
@@ -907,7 +854,7 @@ function saverecipe(id){
 
  }
 
-removerecipe
+//Function to remove the recipe ID from users favourite recipe list
 
 function removerecipe(id){
 
@@ -933,11 +880,9 @@ function removerecipe(id){
             console.error('Error:', error);
         });
 
-
-
  }
 
-// Function to load recipe from the backend
+// Function to load recipe from the backend on users favourite recipe page by user id
 function loadSavedRecipes() {
     usr_id = getCookie('userid')
  
@@ -992,7 +937,7 @@ function loadSavedRecipes() {
 }
 
  
-
+//service worker rgister
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
