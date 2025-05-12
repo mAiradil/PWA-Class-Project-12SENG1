@@ -408,27 +408,7 @@ app.post('/api/login', async (req, res) => {
 
 //create new user on sign up page
 app.post('/api/signup',async (req, res) => {
-   /* const { username, password } = req.body;
-
-  if (!username || !password || password.length < 8) {
-    return res.status(400).send('Username and a strong password are required.');
-  }
-
-  const hash =  bcrypt.hash(password, 10);
-console.log(hash)
-  db.run(
-    'INSERT INTO users (email, password) VALUES (?, ?)',
-    [username, hash],
-    function (err) {
-        if (err) {
-            res.status(500).send('Error inserting data');
-        } else {
-            res.status(201).json({ id: this.lastID });
-        }
-       
-       //res.send('User registered successfully!');
-    }
-  );*/
+   
   const { email, password} = req.body;
   //if (!email || !password || password.length < 8) {
    //  return res.status(400).send('Username and a strong password are required.');
