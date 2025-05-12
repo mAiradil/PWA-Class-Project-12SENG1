@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 7000;
+const bcrypt = require('bcrypt');
 //compress the pages for fast loading
 const compression = require('compression');
 app.use(compression());
@@ -335,10 +336,30 @@ app.post('/api/update-recipe/:id', (req, res) => {
     });
          
 });
- 
+ /*
 //check user email and password to login 
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { email, password} = req.body;
+    dbpass=''
+    db.all('SELECT * FROM  users where email= ?  ', [email ], (err, row) => {
+        if (err) {
+            res.status(500).send('Error retrieving data');
+        } else {
+            
+            dbpass=row[0]['password']
+            
+        }
+    });
+     console.log(dbpass)
+    storedHash=dbpass
+    const isMatch = await bcrypt.compare(password, storedHash);
+
+    if (isMatch) {
+    console.log("Password is correct!");
+    } else {
+    console.log("Incorrect password.");
+    }
+
     db.all('SELECT * FROM users where email= ?  and password = ? ', [email, password ], (err, row) => {
         if (err) {
             res.status(500).send('Error retrieving data');
@@ -349,14 +370,80 @@ app.post('/api/login', (req, res) => {
         }
     });
 });
+*/
+ 
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email)
+    try {
+        // Query the user by email
+        db.get('SELECT * FROM users WHERE email = ?', [email], async (err, row) => {
+            if (err) {
+                return res.status(500).send('Error retrieving user');
+            }
+
+            if (!row) {
+                return res.status(404).send('User not found');
+            }
+
+            const storedHash = row.password;
+
+            // Compare hashed password
+            const isMatch = await bcrypt.compare(password, storedHash);
+
+            if (isMatch) {
+                console.log("Password is correct!");
+                res.status(200).json(row);
+              //  res.status(200).json({ message: 'Login successful', user: row });
+            } else {
+                console.log("Incorrect password.");
+                res.status(401).send('Incorrect password');
+            }
+        });
+    } catch (error) {
+        res.status(500).send('Internal server error');
+    }
+});
 
 //create new user on sign up page
-app.post('/api/signup', (req, res) => {
-    const { email, password} = req.body;
+app.post('/api/signup',async (req, res) => {
+   /* const { username, password } = req.body;
+
+  if (!username || !password || password.length < 8) {
+    return res.status(400).send('Username and a strong password are required.');
+  }
+
+  const hash =  bcrypt.hash(password, 10);
+console.log(hash)
+  db.run(
+    'INSERT INTO users (email, password) VALUES (?, ?)',
+    [username, hash],
+    function (err) {
+        if (err) {
+            res.status(500).send('Error inserting data');
+        } else {
+            res.status(201).json({ id: this.lastID });
+        }
+       
+       //res.send('User registered successfully!');
+    }
+  );*/
+  const { email, password} = req.body;
+  //if (!email || !password || password.length < 8) {
+   //  return res.status(400).send('Username and a strong password are required.');
+  //}
+
+  const hash = await bcrypt.hash(password, 10);
+
     db.run(`INSERT INTO users (email, password ) VALUES (?, ?)`,
-        [ email, password],
+        [ email, hash],
         function (err) {
             if (err) {
+                console.log(err)
+                if (err.message.includes('UNIQUE constraint failed')) {
+                    return res.status(400).send('Username already exists.');
+                }
                 res.status(500).send('Error inserting data');
             } else {
                 res.status(201).json({ id: this.lastID });

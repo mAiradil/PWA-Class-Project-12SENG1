@@ -29,17 +29,11 @@ const resetDatabase = () => {
             user_id: "1",
             
             email: "user1@gmail.com",
-            password: "user1",
-          },
-          {
-            user_id: "2",
-            
-            email: "user2@gmail.com",
-            password: "user2",
-          } 
+            password: "$2b$10$PG24OqDEm5T10z8zjuuzwen7/DW139avvoid.s.xi8T/bYQrtPH2i",
+          }
         ];
         db.run(
-          `CREATE TABLE users (user_id INTEGER PRIMARY KEY AUTOINCREMENT,  email text NOT NULL,password text NOT NULL)`,
+          `CREATE TABLE users (user_id INTEGER PRIMARY KEY AUTOINCREMENT,  email text NOT NULL UNIQUE,password text NOT NULL)`,
           (err) => {
              
               // Table just created, creating some rows

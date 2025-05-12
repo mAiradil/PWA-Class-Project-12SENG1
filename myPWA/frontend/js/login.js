@@ -12,7 +12,7 @@ function togglePassword() {
 }
 
 function validateEmail() {
-    const emailInput = document.getElementById('email');
+    const emailInput = document.getElementById('signinemail');
     const email = emailInput.value;
     
     if (!email.includes('@')) {
@@ -25,9 +25,9 @@ function validateEmail() {
 // Handle form submission
 document.querySelector('.sign-up-form').addEventListener('submit', function(event) {
     if (!validateEmail()) {
-        event.preventDefault(); // Stop form from submitting if validation fails
-    } else {
+       event.preventDefault(); // Stop form from submitting if validation fails
+   } else {
         event.preventDefault(); // Prevent form’s default submission
-        window.location.href = '/'; // Redirect to the target page
-    }
+       // window.location.href = '/'; // Redirect to the target page
+   }
 });

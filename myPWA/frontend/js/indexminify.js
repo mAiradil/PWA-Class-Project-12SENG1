@@ -1,5 +1,6 @@
 // Nav Sticky
  
+
 const mainnav = document.querySelector('.mainnav');
 const url = window.location.pathname;
 const pageName = url.substring(url.lastIndexOf('/') + 1);
@@ -750,46 +751,48 @@ function UpdateRecipe(event) {
 //Function when user click on sign in to login 
 function loginUser(event) {
     event.preventDefault(); // Prevent form from submitting in the traditional way
-    document.getElementById('signinmessage').innerHTML =""
-   
+    document.getElementById('signinmessage').innerHTML = "";
+
     const email = document.getElementById('signinemail').value;
     const password = document.getElementById('signinpassword').value;
-    // Ensure all fields are filled out
-    if (email && password ) {
-       
-        // Send a POST request  
+
+    if (email && password) {
         fetch('http://localhost:7000/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password}),
+            body: JSON.stringify({ email, password }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('   added:', data);
-            if(data == ''){
-                document.getElementById('signinmessage').innerHTML ="Invalid user/password OR user does not exist"
-            }else{
-                if(data[0]['user_id'] != ''){
-                    setCookie('userid' ,data[0]['user_id'] ,1 )
-                    window.location.href = "/";
-
-                }
-                 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
             }
-
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.user_id)
+            if (data && data.user_id ) {
+                const userId = data.user_id;
+                if (userId) {
+                    setCookie('userid', userId, 1);
+                    window.location.href = "/";
+                } else {
+                    document.getElementById('signinmessage').innerHTML = "Invalid user/password OR user does not exist";
+                }
+            } else {
+                document.getElementById('signinmessage').innerHTML = "Invalid user/password OR user does not exist";
+            }
         })
         .catch(error => {
-            document.getElementById('signinmessage').innerHTML ="Invalid user/password OR user does not exist"
-            console.error('Error:', error);
+            document.getElementById('signinmessage').innerHTML = "Invalid Password. Please try again.";
+            console.error('Login error:', error);
         });
-
-
     } else {
         alert('Please fill in all required fields.');
     }
 }
+
 
 //Function when user sign up with email and password
 function SignupUser(event) {
@@ -797,33 +800,36 @@ function SignupUser(event) {
     event.preventDefault(); // Prevent form from submitting in the traditional way
     const email = document.getElementById('signupemail').value;
     const password = document.getElementById('signuppassword').value;
-    // Ensure all fields are filled out
-    if (email && password ) {
-        // Send a POST request  
-        fetch('http://localhost:7000/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password}),
-        })
-        .then(response => response.json())
-        .then(data => {
-            
-            console.log('   added:', data);
-            document.getElementById('signupmessage').innerHTML ="User created"
-            signupForm.reset();
+    if (!email || !password || password.length < 8) {
+          document.getElementById('signupmessage').innerHTML ="Username and a strong password are required."
+    }else{
+        // Ensure all fields are filled out
+        if (email && password ) {
+            // Send a POST request  
+            fetch('http://localhost:7000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                
+                console.log('   added:', data);
+                document.getElementById('signupmessage').innerHTML ="User created"
+                signupForm.reset();
 
-        })
-        .catch(error => {
-            document.getElementById('signupmessage').innerHTML ="Error while creating user"
-            console.error('Error:', error);
-        });
+            })
+            .catch(error => {
+                document.getElementById('signupmessage').innerHTML ="User/email already exist"
+                //console.error('Error:', error);
+            });
 
-    } else {
-        alert('Please fill in all required fields.');
+        } else {
+            alert('Please fill in all required fields.');
+        }
     }
-
 }
 
 //Function to save recipe ID when user logged in as user favourite recipe
