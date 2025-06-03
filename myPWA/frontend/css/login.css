@@ -91,3 +91,33 @@
 .logininfo .input-group{
     width:100%;
 }
+
+
+
+.requirements {
+    list-style: none;
+    padding: 0;
+    margin-top: -10px;
+}
+
+.requirements li {
+    margin: 5px 0;
+    color: #999;
+    display: flex;
+    align-items: center;
+}
+
+.requirements li.valid {
+    color: green;
+}
+
+.requirements li::before {
+    content: '✖';
+    margin-right: 10px;
+    color: red;
+}
+
+.requirements li.valid::before {
+    content: '✔️';
+    color: green;
+}
