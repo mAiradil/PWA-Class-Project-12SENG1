@@ -17,22 +17,36 @@ function togglePassword() {
 }
 
 /**************
+ * SANITISATION LOGIC
+ **************/
+function sanitizeInput(input) {
+    const temp = document.createElement('div');
+    temp.textContent = input.trim(); // Escape HTML + trim whitespace
+    return temp.innerHTML.replace(/<script.*?>.*?<\/script>/gi, '');
+}
+
+/**************
  * VALIDATION FOR SIGNUP
  **************/
 function validateEmail() {
     const emailInput = document.getElementById('signupemail');
-    return emailInput && emailInput.value.includes('@');
+    const raw = emailInput?.value || '';
+    const sanitized = sanitizeInput(raw);
+    emailInput.value = sanitized;
+    return sanitized.includes('@');
 }
 
 function validatePassword(input = null) {
-    const pwd = input !== null ? input : document.getElementById('signuppassword')?.value;
-    if (!pwd) return false;
+    const pwdField = document.getElementById('signuppassword');
+    const raw = input !== null ? input : pwdField?.value || '';
+    const sanitized = sanitizeInput(raw);
+    if (pwdField) pwdField.value = sanitized;
 
-    const hasLength = pwd.length >= 8;
-    const hasUpper = /[A-Z]/.test(pwd);
-    const hasLower = /[a-z]/.test(pwd);
-    const hasNumberOrSpecial = /[0-9\W_]/.test(pwd);
-    const noTripleRepeat = !/(.)\1\1/.test(pwd);
+    const hasLength = sanitized.length >= 8;
+    const hasUpper = /[A-Z]/.test(sanitized);
+    const hasLower = /[a-z]/.test(sanitized);
+    const hasNumberOrSpecial = /[0-9\W_]/.test(sanitized);
+    const noTripleRepeat = !/(.)\1\1/.test(sanitized);
 
     updateRequirement("length", hasLength);
     updateRequirement("uppercase", hasUpper);
@@ -52,19 +66,19 @@ function updateRequirement(id, conditionMet) {
 
 // Realtime validation for signup form
 if (document.getElementById('signuppassword')) {
-    document.getElementById('signuppassword').addEventListener('input', () => {
+    const submitBtn = document.querySelector('button[type="submit"]');
+    const emailInput = document.getElementById('signupemail');
+    const passwordInput = document.getElementById('signuppassword');
+
+    const handleInput = () => {
         const passwordValid = validatePassword();
         const emailValid = validateEmail();
-        document.querySelector('button[type="submit"]').disabled = !(passwordValid && emailValid);
-    });
+        submitBtn.disabled = !(passwordValid && emailValid);
+    };
 
-    document.getElementById('signupemail').addEventListener('input', () => {
-        const passwordValid = validatePassword();
-        const emailValid = validateEmail();
-        document.querySelector('button[type="submit"]').disabled = !(passwordValid && emailValid);
-    });
+    passwordInput.addEventListener('input', handleInput);
+    emailInput.addEventListener('input', handleInput);
 
-    // Signup form submission
     document.querySelector('.sign-up-form').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -79,6 +93,7 @@ if (document.getElementById('signuppassword')) {
             return;
         }
 
+        msg.style.color = "green";
         msg.textContent = "🎉 Successfully signed up!";
     });
 }
@@ -140,8 +155,10 @@ if (signinForm) {
             return;
         }
 
-        const email = document.getElementById('signinemail').value;
-        const password = document.getElementById('signinpassword').value;
+        const rawEmail = document.getElementById('signinemail')?.value || '';
+        const rawPassword = document.getElementById('signinpassword')?.value || '';
+        const email = sanitizeInput(rawEmail);
+        const password = sanitizeInput(rawPassword);
 
         if (mockCheckLogin(email, password)) {
             signinMessage.style.color = "green";
