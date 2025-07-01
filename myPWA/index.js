@@ -65,8 +65,6 @@ JOIN sub_categories sc  ON cstr.subcat_id = sc.subcat_id
 JOIN recipe_types rt   ON cstr.type_id = rt.type_id 
 ORDER BY recipes.recipe_id DESC    
 `, [], (err, rows) => {
-
-
         if (err) {
             res.status(500).send('Error retrieving data');
         } else {
@@ -413,7 +411,7 @@ app.post('/api/signup',async (req, res) => {
   //if (!email || !password || password.length < 8) {
    //  return res.status(400).send('Username and a strong password are required.');
   //}
- // hashing password
+ // hashing password // index.js – SIGNUP endpoint
   const hash = await bcrypt.hash(password, 10);
 
     db.run(`INSERT INTO users (email, password ) VALUES (?, ?)`,
