@@ -93,7 +93,7 @@ if (document.getElementById('signuppassword')) {
             return;
         }
 
-        msg.style.color = "green";
+        msg.style.color = "red";
         msg.textContent = "🎉 Successfully signed up!";
     });
 }
@@ -155,13 +155,15 @@ if (signinForm) {
             return;
         }
 
+        
+
         const rawEmail = document.getElementById('signinemail')?.value || '';
         const rawPassword = document.getElementById('signinpassword')?.value || '';
         const email = sanitizeInput(rawEmail);
         const password = sanitizeInput(rawPassword);
 
         if (mockCheckLogin(email, password)) {
-            signinMessage.style.color = "green";
+            signinMessage.style.color = "red";
             signinMessage.textContent = "✅ Login successful!";
             localStorage.removeItem('loginAttempts');
             localStorage.removeItem('lockoutTime');
@@ -181,3 +183,9 @@ if (signinForm) {
         }
     });
 }
+
+window.addEventListener('load', () => {
+    if (isLockedOut()) {
+        startLockout();
+    }
+});
