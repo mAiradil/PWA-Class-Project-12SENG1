@@ -9,7 +9,7 @@ function togglePassword() {
         icon.textContent = '🙉'; // Change to monkey covering ears
     } else {
         passwordField.type = 'password';
-        icon.textContent = '👁'; // Change back to eye
+        icon.textContent = '🙈'; // Change back to eye
     }
 }
  

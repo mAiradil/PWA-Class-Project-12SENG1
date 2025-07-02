@@ -12,7 +12,7 @@ function togglePassword() {
         passwordIcon.textContent = '🙉';
     } else {
         passwordInput.type = 'password';
-        passwordIcon.textContent = '👁';
+        passwordIcon.textContent = '🙈';
     }
 }
 
